@@ -27,30 +27,59 @@ public class Board{
 	}
     }
 
-    public void addQueen(int row, int col){
+    public Boolean addQueen(int row, int col){
 	if(board[row][col] == 0){
 	    board[row][col] = 1;
+	}else{
+	    return false;
 	}
-	for(int i = 0; i < board.length; i++){
+	int offset = 1;
+	for(int i = col+1; i < board.length; i++){
 	    if(board[row][i] <= 0){
 		board[row][i] -= 1;
 	    }
-	    if(board[i][col] <= 0){
-		board[i][col] -= 1;
+	    if(col - offset >= 0){
+		board[row-offset][i] -= 1;
 	    }
+	    if(col + offset < board.length){
+		board[row+offset][i] -= 1;
+	    }
+	    offset++;
 	}
-	/*for(int i = 0; i < board.length - row;i++){
-	    if(board[row][col+i])
-	    }*/
+	return true;
     }
 
-    public void removeQueen(int row, int col){
+    public Boolean removeQueen(int row, int col){
+	if(board[row][col] == 1){
+	    board[row][col] = 0;
+	}else{
+	    return false;
+	}
+	int offset = 1;
+	for(int i = col+1; i < board.length; i++){
+	    if(board[row][i] <= 0){
+		board[row][i] += 1;
+	    }
+	    if(col - offset >= 0){
+		board[row-offset][i] += 1;
+	    }
+	    if(col + offset < board.length){
+		board[row+offset][i] += 1;
+	    }
+	    offset++;
+	}
+	return true;
+    }
+
+    
+    public void Solve(){
 	
     }
 
     public static void main(String [] args){
 	Board x = new Board();
-	x.addQueen(0,0);
+	x.addQueen(2,2);
+	x.removeQueen(2,2);
 	x.PrintBoard();
     }
 
