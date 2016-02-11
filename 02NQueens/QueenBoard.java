@@ -27,6 +27,19 @@ public class QueenBoard{
 	}
     }
 
+    public void PrintSolve(){
+	for(int row = 0; row < board.length;row++){
+	    System.out.println("");
+	    for(int col = 0; col < board.length; col++){
+		if(board[row][col]== 1){
+		    System.out.print("Q,");
+			}else{
+		    System.out.print(" ,");
+		}
+	    }
+	}
+    }    
+
     public Boolean addQueen(int row, int col){
 	if(board[row][col] == 0){
 	    board[row][col] = 1;
@@ -104,6 +117,7 @@ public class QueenBoard{
 	QueenBoard x = new QueenBoard();
 	System.out.println(x.Solve());
 	x.PrintBoard();
+	x.PrintSolve();
     }
 
     
