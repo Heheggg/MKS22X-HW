@@ -27,14 +27,14 @@ public class QueenBoard{
 	}
     }
 
-    public void PrintSolve(){
+    public void printSolution(){
 	for(int row = 0; row < board.length;row++){
 	    System.out.println("");
 	    for(int col = 0; col < board.length; col++){
 		if(board[row][col]== 1){
 		    System.out.print("Q,");
 			}else{
-		    System.out.print(" ,");
+		    System.out.print("_,");
 		}
 	    }
 	}
@@ -85,7 +85,7 @@ public class QueenBoard{
     }
 
     
-    public Boolean Solve(){
+    public Boolean solve(){
 	return solveH(0);
     }
     
@@ -112,13 +112,4 @@ public class QueenBoard{
 	}
 	return false;
     }
-    
-    public static void main(String [] args){
-	QueenBoard x = new QueenBoard();
-	System.out.println(x.Solve());
-	x.PrintBoard();
-	x.PrintSolve();
-    }
-
-    
 }
