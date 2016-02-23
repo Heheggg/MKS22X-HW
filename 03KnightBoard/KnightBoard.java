@@ -60,10 +60,10 @@ public class KnightBoard{
         return false;
     }
 
-    public static void main(String args[]){
+    /*public static void main(String args[]){
 	KnightBoard x = new KnightBoard(7);
 	System.out.println(x.solve());
 	x.printSolution();
-    }
+    }*/
     
 }
