@@ -6,9 +6,9 @@ public class KnightBoard{
 	{2,1}, {2,-1,},{1,2},{1,-2},{-2,1},{-2,-1},{-1,2},{-1,-2}
     };
     
-    public KnightBoard(int x){
+    public KnightBoard(int x,int y){
 	solved = false;
-	board = new int[x][x];
+	board = new int[x][y];
 	for(int row = 0; row < board.length;row++){
 	    for(int col = 0; col < board[0].length; col++){
 		board[row][col] = 0;
@@ -16,6 +16,11 @@ public class KnightBoard{
 	}
 	board[0][0] = 1;
     }
+
+    public KnightBoard(int x){
+        this(x,x);
+    }
+    
 
     public KnightBoard(){
 	this(5);
@@ -56,7 +61,7 @@ public class KnightBoard{
     }
 
     public static void main(String args[]){
-	KnightBoard x = new KnightBoard(6);
+	KnightBoard x = new KnightBoard(7);
 	System.out.println(x.solve());
 	x.printSolution();
     }
