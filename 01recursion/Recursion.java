@@ -11,6 +11,9 @@ public class Recursion implements hw01{
 	if(n < 0){
 	    throw new IllegalArgumentException("n < 0");
 	}
+	if(n == 0){
+	    return 0;
+	}
 	double counter = n/2;
 	while(!helpsqrt(counter, n)){
 	    counter = (n/counter + counter)/2;
@@ -20,6 +23,6 @@ public class Recursion implements hw01{
 
     /*public static void main(String [] args){
 	Recursion x = new Recursion();
-	System.out.println(x.sqrt(20));
-    }*/
+	System.out.println(x.sqrt(0.000001));
+    }/*
 }
