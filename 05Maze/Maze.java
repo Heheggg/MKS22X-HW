@@ -6,6 +6,9 @@ public class Maze{
     private char[][]maze;
     private int startx,starty;
     private boolean animate;
+    private final int[][]helper = {
+	{0,1},{0,-1},{1,0},{-1,0}
+    };
 
     /*Constructor loads a maze text file.
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -83,6 +86,19 @@ public class Maze{
             wait(20);
         }
 
+	maze[x][y] = '@';
+	for(int i = 0; i < helper.length;i++){
+	    if(maze[x+helper[i][0]][y+helper[i][1]] == ' '){
+		if(solve(x+helper[i][0],y+helper[i][1])){
+		    return true;
+		}
+	    }else if(maze[x+helper[i][0]][y+helper[i][1]] == 'E'){
+		return true;
+	    }
+	}
+	maze[x][y] = '.';
+	
+
         //COMPLETE SOLVE
         return false; //so it compiles
     }
@@ -92,6 +108,16 @@ public class Maze{
 
     public void clearTerminal(){
         System.out.println(CLEAR_SCREEN);
+    }
+
+    public void Print(){
+	System.out.println(startx +""+ starty);
+	for(int i = 0; i < maze.length; i++){
+	    System.out.println("");
+	    for(int i2 = 0; i2 < maze[i].length; i2++){
+		System.out.print(maze[i][i2]);
+	    }
+	}
     }
 
     public String toString(){
