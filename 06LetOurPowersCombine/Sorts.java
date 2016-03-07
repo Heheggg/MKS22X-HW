@@ -3,6 +3,12 @@ import java.util.*;
 public class Sorts{
 
     public static void main(String []args){
+	int [] test1 = { 2, 5, -2, 6, -3, 8, 0, -7, -9, 4 };
+	int [] test2 = {73,45,0,-3,876,56};
+	Sorts.mergeSort(test1);
+	Sorts.printArray(test1);
+
+	
 	//Selection Sort 5.212s 
 	//int [] t1 = new int [10];
 	/*for(int i = 0; i < t1.length ; i++){
@@ -75,17 +81,40 @@ public class Sorts{
 	}
     }
 
-    public static void mergSort(int [] ary){
-	for(int index = 2; index*2 < ary.length; index = index*2){
-	   
+    public static void mergeSort(int [] ary){
+	int [] ary1 = Arrays.copyOf(ary,ary.length);
+	int [] ary2 = Arrays.copyOf(ary,ary.length);
+	Boolean x = true;
+	for(int index = 1; index < ary.length; index = index*2){
+	    int counter = 0;
+	    while((counter+index)<=ary.length){	        
+		if(x){
+		    mergehelp(ary1,ary2,counter,counter+(index-1),counter+index,Math.min(ary.length-1,counter+(2*index-1)));
+		}else{
+		    mergehelp(ary2,ary1,counter,counter+(index-1),counter+index,Math.min(ary.length-1,counter+(2*index-1)));
+		}
+		counter+= 2*index;
+	    }
+	    x = !x;
+
 	}
+	if(x){
+	    for(int i = 0; i < ary.length;i++){
+		ary[i] = ary1[i];
+	    }
+	}else{
+	    for(int i = 0; i < ary.length;i++){
+		ary[i] = ary2[i];
+	    }
+	}
+	
     }
 
-    private static void mergehelp(int [] ary1, int [] ary2; int start1, int end1,int start2, int end2){
+    public  static void mergehelp(int [] ary1, int [] ary2, int start1, int end1,int start2, int end2){
 	int counter = Math.min(start1,start2);
 	while((start1 <=  end1) && (start2 <= end2)){
-	    if(ary1[start1] <= ary1[start2]){
-		ary2[couter] = ary1[start2];
+	    if(ary1[start1] >= ary1[start2]){
+		ary2[counter] = ary1[start2];
 		start2++;
 		counter++;
 	    }else{
@@ -94,13 +123,12 @@ public class Sorts{
 		counter++;
 	    }	    
 	}
-
-	if(start1 <= end1){
+	while(start1 <= end1){	    
 	    ary2[counter] = ary1[start1];
 	    start1++;
 	    counter++;		
 	}
-	if(start2 <= end2){
+	while(start2 <= end2){
 	    ary2[counter] = ary1[start2];
 	    start2++;
 	    counter++;		
