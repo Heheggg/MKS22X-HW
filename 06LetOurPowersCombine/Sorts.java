@@ -4,9 +4,9 @@ public class Sorts{
 
     public static void main(String []args){
 	int [] test1 = { 2, 5, -2, 6, -3, 8, 0, -7, -9, 4 };
-	int [] test2 = {73,45,0,-3,876,56};
-	Sorts.mergeSort(test1);
-	Sorts.printArray(test1);
+	int [] test2 = {-3,876,56};
+	Sorts.mergeSort(test2);
+	Sorts.printArray(test2);
 
 	
 	//Selection Sort 5.212s 
@@ -135,7 +135,7 @@ public class Sorts{
 	}
     }
 
-    public static int sort(int [] ary, int num){
+    /* public static int sort(int [] ary, int num){
 	int top = ary.length -2;
 	int bot = 0;
 
@@ -171,7 +171,7 @@ public class Sorts{
 	    }
 	}	
 	    
-    }
+	}*/
 
 
 
