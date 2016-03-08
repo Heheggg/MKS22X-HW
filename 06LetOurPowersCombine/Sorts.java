@@ -5,7 +5,7 @@ public class Sorts{
     public static void main(String []args){
 	int [] test1 = { 2, 5, -2, 6, -3, 8, 0, -7, -9, 4 };
 	int [] test2 = {-3,876,56};
-	Sorts.mergeSort(test2);
+	Sorts.mergesort(test2);
 	Sorts.printArray(test2);
 
 	
