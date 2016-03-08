@@ -134,4 +134,46 @@ public class Sorts{
 	    counter++;		
 	}
     }
+
+    public static int sort(int [] ary, int num){
+	int top = ary.length -2;
+	int bot = 0;
+
+	int temp = ary[k];
+	int ary[k] = ary[ary.length-1];
+	int ary[ary.length-1] = temp;
+	    
+
+	Random randgen = new Random();
+	if(low >= high){
+	    throw new IllegalArgumentException("wut");
+	}
+	int middle = Random.nextInt(ary.length-3)+1;
+	int middlenum = ary[middle];
+
+
+	int i = top;
+	int k = bot;
+	while(i <= k){
+	    while(ary[i]< middlenum){
+		i++;
+	    }
+	    while(ary[k]> middlenum){
+		k++
+	    }
+
+	    if(i <= bot){
+		int save = ary[i];
+		ary[i] = ary[j];
+		ary[j] =  save;
+		i++;
+		j++;
+	    }
+	}	
+	    
+    }
+
+
+
+    
 }
