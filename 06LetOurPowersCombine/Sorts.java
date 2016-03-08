@@ -81,7 +81,7 @@ public class Sorts{
 	}
     }
 
-    public static void mergeSort(int [] ary){
+    public static void mergesort(int [] ary){
 	int [] ary1 = Arrays.copyOf(ary,ary.length);
 	int [] ary2 = Arrays.copyOf(ary,ary.length);
 	Boolean x = true;
@@ -96,7 +96,6 @@ public class Sorts{
 		counter+= 2*index;
 	    }
 	    x = !x;
-
 	}
 	if(x){
 	    for(int i = 0; i < ary.length;i++){
@@ -106,11 +105,10 @@ public class Sorts{
 	    for(int i = 0; i < ary.length;i++){
 		ary[i] = ary2[i];
 	    }
-	}
-	
+	}	
     }
 
-    public  static void mergehelp(int [] ary1, int [] ary2, int start1, int end1,int start2, int end2){
+    public  static void merge(int [] ary1, int [] ary2, int start1, int end1,int start2, int end2){
 	int counter = Math.min(start1,start2);
 	while((start1 <=  end1) && (start2 <= end2)){
 	    if(ary1[start1] >= ary1[start2]){
