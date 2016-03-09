@@ -3,27 +3,37 @@ import java.util.*;
 public class Quick{
 
     private static int partition(int[]ary, int left, int right){
-	int middlenum = ary[(left+right)/2];	    	
+	int middlenum =ary[(left+right)/2];
+	ary[(left+right)/2] = ary[right];
+	ary[right] = middlenum;
+	
+	
 	int i = left;
-	int k = right;
-	while(i <= k){
+	int k = right-1;
+	
+	while(i <= k-1){
 	    while(ary[i]< middlenum){
 		i++;
 	    }
 	    while(ary[k]> middlenum){
-		k++;
-		    }
+		k--;
+	    }
 
-	    if(i <= left){
+	    if(i <= (right-1)){
 		int save = ary[i];
 		ary[i] = ary[k];
 		ary[k] =  save;
 		i++;
-		k++;
+		k--;
 	    }
 	}
-	return i+1;
-	    
+
+	for(int ind = left; ind < right; ind++){
+	    if(ary[ind] > middlenum){
+		return ind;
+	    }
+	}
+	return right;	    
     }
 
     
@@ -74,7 +84,7 @@ public class Quick{
 
     public static void main(String [] args){
 	int [] test1 = { 2, 5, -2, 6, -3, 8, 0, -7, -9, 4 };
-	System.out.println(Quick.quickselect(test1,1));
+	System.out.println(Quick.partition(test1,0,4));
 
     }
     
