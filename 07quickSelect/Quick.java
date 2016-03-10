@@ -4,6 +4,7 @@ public class Quick{
 
     private static int partition(int[]ary, int left, int right){
 	int middlenum =ary[(left+right)/2];
+	//System.out.println("pivot="+middlenum);
         swap(ary,(left+right)/2,right);
 	
 	
@@ -14,7 +15,7 @@ public class Quick{
 	    while(ary[i]< middlenum){
 		i++;
 	    }
-	    while(ary[k]> middlenum){
+	    while((ary[k]> middlenum)&&(k!=0)){
 		k--;
 	    }
 
@@ -29,12 +30,19 @@ public class Quick{
 
 
 
+
 	for(int ind = left; ind < right; ind++){
 	    if(ary[ind] > middlenum){
 		swap(ary,ind,right);
+		/*for(int z = 0; z < ary.length;z++){
+		    System.out.print(ary[z]+",");
+		}
+		System.out.println();*/
 		return ind;
 	    }
 	}
+
+
 	return right;	    
     }
 
@@ -111,9 +119,12 @@ public class Quick{
     }
 
     public static void main(String [] args){
-	int [] test1 = { 2, 5, -2, 6, -3, 8, 0, -7, -9, 4 };
+	int [] test1 = { 2, 5, -2, 6, -3, 8, 0, -7, -9, 4,0,-3,-5};
         quickSort(test1);
 
+
+
+	
 	for(int i = 0; i < test1.length;i++){
 	    System.out.print(test1[i]+",");
 	}
