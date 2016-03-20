@@ -15,6 +15,7 @@ public class MyLinkedList{
     }
     
     private LNode start;
+    private LNode end;
     private int size;
 
     public Boolean add(int value, int index){
@@ -22,11 +23,16 @@ public class MyLinkedList{
 	LNode newV = new LNode(value);
 	if(temp == null){
 	    start = newV;
+	    end = newV;
 	    return true;
 	}
 	if(index == 0){
 	    newV.setNext(start);
 	    start = newV;
+	    return true;
+	}
+	if(index = size){
+	    add(value);
 	    return true;
 	}
 	while(index!=1){
@@ -41,17 +47,14 @@ public class MyLinkedList{
     }
     
     public Boolean add(int value){
-	LNode x = start;
-	LNode newV = new LNode(value);
-	if(x == null){
-	    start = newV;
+        LNode x = new LNode(value);
+	if(start == null){
+	    start = x;
+	    end = x;
 	    return true;
 	}
-	while(x.hasNext()){
-	    x = x.getNext();
-	}
-	x.setNext(newV);
-	size++;
+	end.setNext(x);
+	end = x;
 	return true;
     }
 
@@ -92,6 +95,7 @@ public class MyLinkedList{
 	    }
 	    int save = x.getNext().getInt();
 	    x.setNext(null);
+	    end = x;
 	    return save;
 	}
 	while(index!= 1){
