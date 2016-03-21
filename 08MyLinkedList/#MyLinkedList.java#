@@ -15,7 +15,6 @@ public class MyLinkedList<T>{
     }
     
     private LNode <T> start;
-    private LNode <T> end;
     private int size;
 
     public Boolean add(T value, int index){
@@ -23,16 +22,11 @@ public class MyLinkedList<T>{
 	LNode <T> newV = new LNode(value);
 	if(temp == null){
 	    start = newV;
-	    end = newV;
 	    return true;
 	}
 	if(index == 0){
 	    newV.setNext(start);
 	    start = newV;
-	    return true;
-	}
-	if(index = size){
-	    add(value);
 	    return true;
 	}
 	while(index!=1){
@@ -47,14 +41,17 @@ public class MyLinkedList<T>{
     }
     
     public Boolean add(int value){
-        LNode x = new LNode(value);
-	if(start == null){
-	    start = x;
-	    end = x;
+	LNode x = start;
+	LNode newV = new LNode(value);
+	if(x == null){
+	    start = newV;
 	    return true;
 	}
-	end.setNext(x);
-	end = x;
+	while(x.hasNext()){
+	    x = x.getNext();
+	}
+	x.setNext(newV);
+	size++;
 	return true;
     }
 
@@ -95,7 +92,6 @@ public class MyLinkedList<T>{
 	    }
 	    int save = x.getNext().getInt();
 	    x.setNext(null);
-	    end = x;
 	    return save;
 	}
 	while(index!= 1){
@@ -132,18 +128,18 @@ public class MyLinkedList<T>{
     }
 
     private class LNode{
-	private int x;
-	private LNode next;
+	private T x;
+	private LNode <T> next;
 
-	public LNode(int x ){
+	public LNode(T x ){
 	    this.x = x;
 	}
 
-	public int getInt(){
+	public T getInt(){
 	    return x;
 	}
 
-	public void setInt(int x){
+	public void setInt(T x){
 	    this.x = x;
 	}
 	

@@ -16,8 +16,9 @@ public class Quick{
 		counter++;
 		i--;
 	    }
+	    
 	}
-
+	System.out.println("Woop woop woop");
 	
        	/*for(int i = 0; i < copy.length;i++){
 	    System.out.print(copy[i]+",");
