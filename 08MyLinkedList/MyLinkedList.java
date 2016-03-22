@@ -1,7 +1,7 @@
 public class MyLinkedList<T>{
 
     public static void main(String []args){
-	MyLinkedList x = new MyLinkedList();
+	MyLinkedList <Integer> x = new MyLinkedList<Integer>();
         x.add(-5);
 	x.add(5);
 	x.add(0);
@@ -14,13 +14,13 @@ public class MyLinkedList<T>{
 	size = 0;
     }
     
-    private LNode <T> start;
-    private LNode <T> end;
+    private LNode start;
+    private LNode end;
     private int size;
 
     public Boolean add(T value, int index){
-	LNode <T> temp = start;
-	LNode <T> newV = new LNode(value);
+	LNode temp = start;
+	LNode newV = new LNode(value);
 	if(temp == null){
 	    start = newV;
 	    end = newV;
@@ -31,7 +31,7 @@ public class MyLinkedList<T>{
 	    start = newV;
 	    return true;
 	}
-	if(index = size){
+	if(index == size){
 	    add(value);
 	    return true;
 	}
@@ -46,7 +46,7 @@ public class MyLinkedList<T>{
 	return true;
     }
     
-    public Boolean add(int value){
+    public Boolean add(T value){
         LNode x = new LNode(value);
 	if(start == null){
 	    start = x;
@@ -58,7 +58,7 @@ public class MyLinkedList<T>{
 	return true;
     }
 
-    public int get(int index){
+    public T get(int index){
 	LNode temp = start;
         while(index!=0){
 	    temp = temp.getNext();
@@ -67,13 +67,13 @@ public class MyLinkedList<T>{
 	return temp.getInt();
     }
 
-    public int set(int index, int newValue){
+    public T set(int index, T newValue){
 	LNode temp = start;
 	while(index!=0){
 	    temp = temp.getNext();
 	    index--;
 	}
-	int save = temp.getInt();
+	T save = temp.getInt();
         temp.setInt(newValue);
 	return save;
     }
@@ -82,10 +82,10 @@ public class MyLinkedList<T>{
 	return size;
     }
 
-    public int remove(int index){
+    public T remove(int index){
 	LNode x = start;
 	if(index == 0){
-	    int save = start.getInt();
+	    T save = start.getInt();
 	    start = start.getNext();
 	    return save;
 	}else if(index == (size-1)){
@@ -93,7 +93,7 @@ public class MyLinkedList<T>{
 		x = x.getNext();
 		index--;
 	    }
-	    int save = x.getNext().getInt();
+	    T save = x.getNext().getInt();
 	    x.setNext(null);
 	    end = x;
 	    return save;
@@ -102,7 +102,7 @@ public class MyLinkedList<T>{
 	    x = x.getNext();
 	    index--;
 	}
-	int save = x.getNext().getInt();
+	T save = x.getNext().getInt();
 	x.setNext(x.getNext().getNext());
 	return save;
     }
@@ -111,7 +111,7 @@ public class MyLinkedList<T>{
 	LNode temp = start;
 	int Index = 0;
 	while(temp!=null){
-	    if(temp.getInt()==value){
+	    if(temp.getInt().equals(value)){
 		return Index;
 	    }
 	    Index++;
@@ -124,7 +124,7 @@ public class MyLinkedList<T>{
 	String save = "[";
 	LNode temp = start;
 	while(temp != null){
-	    save+= temp.getInt()+",";
+	    save+= temp.getInt().toString()+",";
 	    temp = temp.getNext();
 	}
 	save+= "]";
@@ -132,18 +132,18 @@ public class MyLinkedList<T>{
     }
 
     private class LNode{
-	private int x;
+	private T x;
 	private LNode next;
 
-	public LNode(int x ){
+	public LNode(T x ){
 	    this.x = x;
 	}
 
-	public int getInt(){
+	public T getInt(){
 	    return x;
 	}
 
-	public void setInt(int x){
+	public void setInt(T x){
 	    this.x = x;
 	}
 	
