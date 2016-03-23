@@ -5,7 +5,7 @@ public class MyLinkedList<T>{
         x.add(-5);
 	x.add(5);
 	x.add(0);
-	x.add(42,0);
+	x.add(0,42);
 	System.out.println(x.get(2));
 	System.out.println(x.toString());
     }
@@ -18,7 +18,10 @@ public class MyLinkedList<T>{
     private LNode end;
     private int size;
 
-    public Boolean add(T value, int index){
+    public Boolean add(int index, T value){
+	if((index < 0) && (index > size)){
+	    throw new IndexOutOfBoundsException ("seriously man?");
+	}
 	LNode temp = start;
 	LNode newV = new LNode(value);
 	if(temp == null){
@@ -130,7 +133,12 @@ public class MyLinkedList<T>{
 	save+= "]";
 	return save;	    
     }
-
+    
+    public String toString(Boolean x){
+	String save = "";
+	return save;
+    }
+    
     private class LNode{
 	private T x;
 	private LNode next;
