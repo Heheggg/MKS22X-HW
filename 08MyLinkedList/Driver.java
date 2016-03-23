@@ -38,11 +38,11 @@ public class Driver{
 
 
 
-
+	
         //replace toString(true) with a debug to string that shows the head/tail
         System.out.println(m.toString(true));
         System.out.println(n);
-
+	
         //test removing from head/tail/middle
         m.remove(0);
         n.remove(0);

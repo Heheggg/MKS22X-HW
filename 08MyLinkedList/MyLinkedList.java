@@ -19,7 +19,7 @@ public class MyLinkedList<T>{
     private int size;
 
     public Boolean add(int index, T value){
-	if((index < 0) && (index > size)){
+	if((index < 0) || (index > size)){
 	    throw new IndexOutOfBoundsException ("seriously man?");
 	}
 	LNode temp = start;
@@ -27,11 +27,13 @@ public class MyLinkedList<T>{
 	if(temp == null){
 	    start = newV;
 	    end = newV;
+	    size++;
 	    return true;
 	}
 	if(index == 0){
 	    newV.setNext(start);
 	    start = newV;
+	    size++;
 	    return true;
 	}
 	if(index == size){
@@ -46,6 +48,7 @@ public class MyLinkedList<T>{
 	    newV.setNext(temp.getNext());
 	}
 	temp.setNext(newV);
+	size++;
 	return true;
     }
     
@@ -54,14 +57,19 @@ public class MyLinkedList<T>{
 	if(start == null){
 	    start = x;
 	    end = x;
+	    size++;
 	    return true;
 	}
 	end.setNext(x);
 	end = x;
+	size++;
 	return true;
     }
 
     public T get(int index){
+	if((index < 0) || (index > size-1)){
+	    throw new IndexOutOfBoundsException ("seriously man?");
+	}
 	LNode temp = start;
         while(index!=0){
 	    temp = temp.getNext();
@@ -71,6 +79,9 @@ public class MyLinkedList<T>{
     }
 
     public T set(int index, T newValue){
+	if((index < 0) || (index > size-1)){
+	    throw new IndexOutOfBoundsException ("seriously man?");
+	}
 	LNode temp = start;
 	while(index!=0){
 	    temp = temp.getNext();
@@ -86,10 +97,14 @@ public class MyLinkedList<T>{
     }
 
     public T remove(int index){
+	if((index < 0) || (index > size-1)){
+	    throw new IndexOutOfBoundsException ("seriously man?");
+	}
 	LNode x = start;
 	if(index == 0){
 	    T save = start.getInt();
 	    start = start.getNext();
+	    size--;
 	    return save;
 	}else if(index == (size-1)){
 	    while(index!=1){
@@ -99,6 +114,7 @@ public class MyLinkedList<T>{
 	    T save = x.getNext().getInt();
 	    x.setNext(null);
 	    end = x;
+	    size--;
 	    return save;
 	}
 	while(index!= 1){
@@ -107,6 +123,7 @@ public class MyLinkedList<T>{
 	}
 	T save = x.getNext().getInt();
 	x.setNext(x.getNext().getNext());
+	size--;
 	return save;
     }
 
@@ -114,7 +131,7 @@ public class MyLinkedList<T>{
 	LNode temp = start;
 	int Index = 0;
 	while(temp!=null){
-	    if(temp.getInt().equals(value)){
+	    if(temp.getInt().equals(value)){//System
 		return Index;
 	    }
 	    Index++;
@@ -127,7 +144,10 @@ public class MyLinkedList<T>{
 	String save = "[";
 	LNode temp = start;
 	while(temp != null){
-	    save+= temp.getInt().toString()+",";
+	    save+= temp.getInt().toString();
+	    if(temp.hasNext()){
+		save += ", ";
+	    }
 	    temp = temp.getNext();
 	}
 	save+= "]";
@@ -136,6 +156,10 @@ public class MyLinkedList<T>{
     
     public String toString(Boolean x){
 	String save = "";
+	save += "HEAD:"+start.getInt();
+	save += " TAIL:"+this.end.getInt();
+	save += " SIZE:"+size();
+	save += "\n" + toString();
 	return save;
     }
     
