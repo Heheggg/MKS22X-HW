@@ -17,13 +17,21 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
 
     private class cake implements Iterator <T>{
-	private LNode index = start;
+	private LNode index;
+
+	public cake(){
+	    index = start;
+	}
 	
 	public boolean hasNext(){
-	    return  index == null;
+	    return  !(index == null);
 	}
 	
 	public T next(){
+	    if(index == null){
+		//index = start;
+		throw new NoSuchElementException();
+	    }
 	    T save = index.getInt();
 	    index = index.getNext();
 	    return save;
