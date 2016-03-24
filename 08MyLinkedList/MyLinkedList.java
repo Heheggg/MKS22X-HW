@@ -1,4 +1,6 @@
-public class MyLinkedList<T>{
+import java.util.*;
+
+public class MyLinkedList<T> implements Iterable<T>{
 
     public static void main(String []args){
 	MyLinkedList <Integer> x = new MyLinkedList<Integer>();
@@ -8,6 +10,28 @@ public class MyLinkedList<T>{
 	x.add(0,42);
 	System.out.println(x.get(2));
 	System.out.println(x.toString());
+    }
+
+    public Iterator <T> iterator(){
+	return new cake();
+    }
+
+    private class cake implements Iterator <T>{
+	private LNode index = start;
+	
+	public boolean hasNext(){
+	    return  index == null;
+	}
+	
+	public T next(){
+	    T save = index.getInt();
+	    index = index.getNext();
+	    return save;
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException ("heh");
+	}
     }
 
     public MyLinkedList(){
