@@ -1,0 +1,11 @@
+public test {
+    public test(){}
+
+    public String stuff(){
+	return "lol";
+    }
+
+    public int Larry(){
+	return 5;
+    }
+}
