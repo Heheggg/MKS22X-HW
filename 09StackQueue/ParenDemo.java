@@ -9,7 +9,6 @@ public class ParenDemo{
 	if(args.length < 0){
 	    input = args[0];
 	}
-
 	System.out.println(isMatching(input));
     }
 
@@ -20,7 +19,7 @@ public class ParenDemo{
 	    if(opening.contains(s.charAt(i))){
 		save.push(s.charAt(i));
 	    }else if(closing.contains(s.charAt(i))){
-		if(opening.indexOf(save.peek())!=closing.indexOf(s.charAt(i))){
+		if((save.size()==0)||(opening.indexOf(save.peek())!=closing.indexOf(s.charAt(i)))){
 		    System.out.println("no matching pairs for " + s.charAt(i));
 		    return false;
 		}else{
@@ -32,5 +31,5 @@ public class ParenDemo{
 	    System.out.println("no matching pairs for " + save.peek());
 	}
 	return true;
-    }
+    }    
 }
