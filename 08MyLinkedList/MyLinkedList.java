@@ -137,7 +137,9 @@ public class MyLinkedList<T> implements Iterable<T>{
 	if(index == 0){
 	    T save = start.getInt();
 	    start = start.getNext();
-	    start.setPrevious(null);
+	    if(size!=1){
+		start.setPrevious(null);
+	    }
 	    size--;
 	    return save;
 	}else if(index == (size-1)){
