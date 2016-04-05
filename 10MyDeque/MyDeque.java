@@ -1,6 +1,17 @@
 import java.util.*;
 
 public class MyDeque<T>{
+
+    public static void main(String [] arsg){
+	MyDeque <Integer> x = new MyDeque<Integer>();
+	x.addFirst(10);
+	x.addLast(9);
+	x.pollFirst();
+	x.pollLast();
+	
+	System.out.println(x.toString());
+    }
+    
     private int start;
     private int end;
     private int size;
@@ -104,5 +115,17 @@ public class MyDeque<T>{
 	
 	start = 0;
 	end = size-1;  
+    }
+
+    public String toString(){
+	String save = "[";
+	while(peekFirst()!=null){
+	    save+=pollFirst();
+	    if(peekFirst()!=null){
+		save+=",";
+	    }
+	}
+	save += "]";
+	return save;
     }
 }
