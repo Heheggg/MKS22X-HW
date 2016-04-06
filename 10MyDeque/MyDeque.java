@@ -2,31 +2,99 @@ import java.util.*;
 
 public class MyDeque<T>{
 
-    public static void main(String [] arsg){
-	MyDeque <Integer> x = new MyDeque<Integer>();
-	x.addFirst(10);
-	x.addLast(9);
-	x.pollFirst();
-	x.pollLast();
+    public static void main(String [] args){
+ 
+	MyDeque<Integer> d = new MyDeque<Integer>();
+	ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
+ 
+	// Limit the number of times addFirst and addLast is done
+ 
+	int limit = 1000000;
+ 
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
+	d.resize();
 	
-	System.out.println(x.toString());
+        if (args.length > 0) {
+            limit = Integer.parseInt(args[0]);
+        }
+ 
+        // Add to the head and to the tail
+ 
+        for (int i = 0; i < limit/2; i++) {
+            Integer r1 = (int) (Math.random() * 1000000);
+ 
+            // Add first
+            d.addFirst(r1);
+            ad.addFirst(r1);
+        }
+       
+        for (int i = 0; i < limit/2; i++) {
+            Integer r2 = (int) (Math.random() * 1000000);
+            // Add last
+            d.addLast(r2);
+            ad.addLast(r2);
+        }
+ 
+        // Test if adding worked by removing elements
+ 
+        for (int i = 0; i < limit; i++) {
+            if (!d.peekFirst().equals(ad.peekFirst())) {
+                System.out.println("Test #0 (addFirst) failed at: " + i + "!");
+                System.exit(0);
+            }
+ 
+            if (!d.peekLast().equals(ad.peekLast())) {
+                System.out.println("Test #1 (addLast) failed at: " + i + "!");
+                System.exit(0);
+            }
+ 
+            if (!d.pollFirst().equals(ad.pollFirst())) {
+                System.out.println("Test #2 (removeFirst) failed at: " + i + "!");
+                System.exit(0);
+            }
+ 
+            if (!d.pollLast().equals(ad.pollLast())) {
+                System.out.println("Test #3 (removeLast) failed at: " + i + "!");
+                System.exit(0);
+            }
+        }
+ 
+        // Sizes should be equal
+ 
+        if (d.size() != ad.size()) {
+            System.out.println("Not equal sizes. Error!");
+            System.exit(0);
+        }
+ 
+        System.out.println("Success!");
     }
-    
-    private int start;
-    private int end;
-    private int size;
-    private T [] array;
+ 
 
-    public MyDeque(){
-	array = (T[]) new Object[32];
-	start = 0;
-	end = 0;
-	size = 0;
-    }
+ 
+private int start;
+private int end;
+private int size;
+private T [] array;
 
-    public boolean addFirst(T x){
-	if(size >= array.length){
-	    throw new IllegalStateException();
+public MyDeque(){
+    array = (T[]) new Object[32];
+    start = 0;
+    end = 0;
+    size = 0;
+}
+
+public boolean addFirst(T x){
+    if(size >= array.length){
+	throw new IllegalStateException();
 	}
 	if(size == 0){
 	    array[start] = x;
@@ -99,9 +167,6 @@ public class MyDeque<T>{
     }
 
     private void resize(){
-	if(size == 0){
-	    throw new IllegalStateException();
-	}
 	T [] newary = (T[]) new Object[array.length*2];
 	int counter = 0;
 	do{
@@ -109,12 +174,16 @@ public class MyDeque<T>{
 	    if(start == array.length-1){
 		start = 0;
 	    }else{
-		start++;
+		if(start!=end){
+		    start++;
+		}
 	    }
+	    counter++;
 	}while(start!=end);
 	
+	array = newary;
 	start = 0;
-	end = size-1;  
+	end = Math.max(0,size-1);  
     }
 
     public String toString(){
@@ -127,5 +196,9 @@ public class MyDeque<T>{
 	}
 	save += "]";
 	return save;
+    }
+
+    public int size(){
+	return size;
     }
 }
