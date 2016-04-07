@@ -1,5 +1,6 @@
 import java.util.*;
 
+@SuppressWarnings("unchecked")	    
 public class MyDeque<T>{
 
     public static void main(String [] args){
@@ -10,23 +11,11 @@ public class MyDeque<T>{
 	// Limit the number of times addFirst and addLast is done
  
 	int limit = 1000000;
- 
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
-	d.resize();
 	
         if (args.length > 0) {
             limit = Integer.parseInt(args[0]);
         }
- 
+
         // Add to the head and to the tail
  
         for (int i = 0; i < limit/2; i++) {
@@ -42,22 +31,24 @@ public class MyDeque<T>{
             // Add last
             d.addLast(r2);
             ad.addLast(r2);
-        }
+	    }
+
  
         // Test if adding worked by removing elements
  
-        for (int i = 0; i < limit; i++) {
-            if (!d.peekFirst().equals(ad.peekFirst())) {
-                System.out.println("Test #0 (addFirst) failed at: " + i + "!");
-                System.exit(0);
-            }
- 
+	for (int i = 0; i < limit/2; i++) {
+
+	    if (!d.peekFirst().equals(ad.peekFirst())) {
+		System.out.println("Test #0 (addFirst) failed at: " + i + "!");
+		System.exit(0);
+	    }
+	    
             if (!d.peekLast().equals(ad.peekLast())) {
                 System.out.println("Test #1 (addLast) failed at: " + i + "!");
                 System.exit(0);
             }
- 
-            if (!d.pollFirst().equals(ad.pollFirst())) {
+
+	    if (!d.pollFirst().equals(ad.pollFirst())) {
                 System.out.println("Test #2 (removeFirst) failed at: " + i + "!");
                 System.exit(0);
             }
@@ -66,35 +57,35 @@ public class MyDeque<T>{
                 System.out.println("Test #3 (removeLast) failed at: " + i + "!");
                 System.exit(0);
             }
+
         }
+
+        if(d.size()!=ad.size()){
+	    System.out.println("Size are not the same");
+	    System.exit(0);
+	}
  
-        // Sizes should be equal
- 
-        if (d.size() != ad.size()) {
-            System.out.println("Not equal sizes. Error!");
-            System.exit(0);
-        }
  
         System.out.println("Success!");
     }
  
 
  
-private int start;
-private int end;
-private int size;
-private T [] array;
+    private int start;
+    private int end;
+    private int size;
+    private T [] array;
 
-public MyDeque(){
-    array = (T[]) new Object[32];
-    start = 0;
+    public MyDeque(){
+	array = (T[]) new Object[32];
+	start = 0;
     end = 0;
     size = 0;
 }
 
 public boolean addFirst(T x){
     if(size >= array.length){
-	throw new IllegalStateException();
+	resize();
 	}
 	if(size == 0){
 	    array[start] = x;
@@ -113,7 +104,7 @@ public boolean addFirst(T x){
 
     public boolean addLast(T x){
 	if(size >= array.length){
-	    throw new IllegalStateException();
+	    resize();
 	}
 	if(size == 0){
 	    array[end] = x;
@@ -140,7 +131,7 @@ public boolean addFirst(T x){
 
     public T pollFirst(){
 	if(size == 0){
-	    throw new IllegalStateException();
+	    return null;
 	}
 	T save = array[start];
 	array[start] = null;
@@ -149,12 +140,13 @@ public boolean addFirst(T x){
 	}else{
 	    start++;
 	}
+	size--;
 	return save;
     }
 
     public T pollLast(){
 	if(size == 0){
-	    throw new IllegalStateException();
+	    return null;
 	}
 	T save = array[end];
 	array[end] = null;
@@ -163,23 +155,27 @@ public boolean addFirst(T x){
 	}else{
 	    end --;
 	}
+	size--;
 	return save;
     }
 
     private void resize(){
 	T [] newary = (T[]) new Object[array.length*2];
 	int counter = 0;
-	do{
-	    newary[counter] = array[start];
-	    if(start == array.length-1){
-		start = 0;
-	    }else{
-		if(start!=end){
+	if(size==0){
+	    array = newary;
+	}else{
+	    while(start!=end){
+		newary[counter]=array[start];
+		counter++;
+		if(start == array.length-1){
+		    start = 0;
+		}else{
 		    start++;
 		}
 	    }
-	    counter++;
-	}while(start!=end);
+	    newary[counter] =  array[start];
+	}	
 	
 	array = newary;
 	start = 0;
@@ -188,12 +184,16 @@ public boolean addFirst(T x){
 
     public String toString(){
 	String save = "[";
-	while(peekFirst()!=null){
-	    save+=pollFirst();
-	    if(peekFirst()!=null){
-		save+=",";
+	int temp = start;
+	while(temp!=end){
+	    save+=array[temp]+",";
+	    if(temp==array.length-1){
+		temp = 0;
+	    }else{
+		temp++;
 	    }
 	}
+	save+=array[temp];
 	save += "]";
 	return save;
     }
