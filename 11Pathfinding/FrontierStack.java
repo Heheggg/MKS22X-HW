@@ -3,7 +3,6 @@ public class FrontierStack<T> implements Frontier<T>{
     /***You can use your classes or built in ones***/
     /***You can extend another class OR wrap around it***/
     MyStack <T> save;
-    LNode <T> counter;
 
     public FrontierStack(){
 	save = new MyStack<T>();

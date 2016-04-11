@@ -1,4 +1,4 @@
-ximport java.util.*;
+import java.util.*;
 public class MyQueue<T>{
     private MyLinkedList<T> data; 
     
