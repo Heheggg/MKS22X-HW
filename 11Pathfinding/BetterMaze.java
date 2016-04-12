@@ -97,6 +97,7 @@ public class BetterMaze{
 		return true;
 	    }
 	}
+	solvable = false;
 	return false;
     }
 
