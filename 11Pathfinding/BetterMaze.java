@@ -3,10 +3,12 @@ public class BetterMaze{
     private class Node{
 	int [] coordinate;
 	Node previous;
+	int size;
 
-	public Node(int x,int y,Cnode last){
+	public Node(int x,int y,Cnode last,int length){
 	    coordinate = {x,y};
-	    previous = last; 
+	    previous = last;
+	    size = length;
 	}
 
 	public Node getLast(){
@@ -17,6 +19,10 @@ public class BetterMaze{
 	    return coordinate;
 	}
 
+	public int getSize(){
+	    return size;
+	}
+
 
     }
 
@@ -25,6 +31,8 @@ public class BetterMaze{
     private int      startRow,startCol;
     private Frontier<Node> placesToGo;
     private boolean  animate;//default to false
+    private boolean solved,solvable;
+
 
     /**return a COPY of solution.
      *This should be : [x1,y1,x2,y2,x3,y3...]
@@ -36,7 +44,17 @@ public class BetterMaze{
      **/
     public int[] solutionCoordinates(){
         /** IMPLEMENT THIS **/      
-	return new int[1];
+	if(!solved){
+	    solveDFS();
+	}
+	if(solvable){
+	    int [] temp = new int[solution.length];
+	    System.arraycopy(solution,0,temp,0,solution.length);
+	    return temp;
+	}else{
+	    System.out.println("No solution");
+	    return null;
+	}
     }    
 
 
@@ -44,7 +62,8 @@ public class BetterMaze{
      **/
     public boolean solveBFS(){  
         /** IMPLEMENT THIS **/      
-	return false;
+	placesToGo = new FrontierQueue<Node>();
+	return solve;
     }   
 
 
@@ -52,19 +71,26 @@ public class BetterMaze{
      */ 
     public boolean solveDFS(){  
         /** IMPLEMENT THIS **/  
-	return false;
+	placesToGo = new FrontierStack<Node>();
+	return solve();
     }    
 
     /**Search for the end of the maze using the frontier. 
        Keep going until you find a solution or run out of elements on the frontier.
     **/
     private boolean solve(){  
-        /** IMPLEMENT THIS **/  
+        /** IMPLEMENT THIS **/
+	isSolved = true;
+	Node start = new Node(startRow,startCol,null,1);
+	placesToGo.add(start);
+	
 	return false;
     }    
      
     /**mutator for the animate variable  **/
-    public void setAnimate(boolean b){  /** IMPLEMENT THIS **/ }    
+    public void setAnimate(boolean b){  /** IMPLEMENT THIS **/
+	animate = b;
+    }    
 
 
     public BetterMaze(String filename){
