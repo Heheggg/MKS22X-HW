@@ -17,7 +17,7 @@ public class FrontierStack<T> implements Frontier<T>{
     }
 
     public boolean hasNext(){
-	return save.size() == 0;
+	return save.size() != 0;
 	
     }
 }

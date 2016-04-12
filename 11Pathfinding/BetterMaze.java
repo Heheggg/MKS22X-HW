@@ -9,8 +9,9 @@ public class BetterMaze{
 	int size;
 
 	public Node(int row, int col ,Node last,int length){
-	    int [] coordinate = {row,col};
-	    maze[row][col] = '.';
+	    coordinate = new int[2];
+	    coordinate[0] = row;
+	    coordinate[1] = col;
 	    previous = last;
 	    size = length;
 	}
@@ -82,14 +83,19 @@ public class BetterMaze{
     **/
     private boolean solve(){  
         /** IMPLEMENT THIS **/
-	solved = true;
 	Node start = new Node(startRow,startCol,null,1);
+	maze[startRow][startCol] = '.';
 	placesToGo.add(start);
+	//System.out.println(placesToGo.hasNext());
 	while(placesToGo.hasNext()){
 	    if(animate){
-		System.out.println(toString());
+	       System.out.println(this);
+	       wait(50);
 	    }
-	    process(placesToGo.next());
+	    if(process(placesToGo.next())){
+		solved = true;
+		return true;
+	    }
 	}
 	return false;
     }
@@ -98,16 +104,54 @@ public class BetterMaze{
 	int row = c.getCoord()[0];
 	int col = c.getCoord()[1];
 	if(maze[row+1][col]== ' ' || maze[row+1][col]== 'E'){
-	    Node newN = new Node(row+1,col,C,C.getSize()+1);
+	    Node newN = new Node(row+1,col,c,c.getSize()+1);
+	    if(maze[row+1][col]== 'E'){
+		setSolution(newN);
+		return true;
+	    }
+	    maze[row+1][col] = '.';
+	    placesToGo.add(newN);
 	}
 	if(maze[row-1][col]== ' ' || maze[row-1][col]== 'E'){
-	    Node newN = new Node(row-1,col,C,C.getSize()+1);	    
+	    Node newN = new Node(row-1,col,c,c.getSize()+1);
+	    if(maze[row-1][col]== 'E'){
+		setSolution(newN);
+		return true;
+	    }
+	    maze[row-1][col] = '.';
+	    placesToGo.add(newN);	    
 	}
 	if(maze[row][col+1]== ' ' || maze[row][col+1]== 'E'){
-	    Node newN = new Node(row,col+1,C,C.getSize()+1);	    
+	    Node newN = new Node(row,col+1,c,c.getSize()+1);
+	    if(maze[row][col+1]== 'E'){
+		setSolution(newN);
+		return true;
+	    }
+	    maze[row][col+1] = '.';
+	    placesToGo.add(newN);	    
 	}
 	if(maze[row][col-1]== ' ' || maze[row][col-1]== 'E'){
-	    Node newN = new Node(row,col-1,C,C.getSize()+1);	    
+	    Node newN = new Node(row,col-1,c,c.getSize()+1);
+	    if(maze[row][col-1]== 'E'){
+		setSolution(newN);
+		return true;
+	    }
+	    maze[row][col-1] = '.';
+	    placesToGo.add(newN);
+	}
+	return false;
+    }
+
+    private void setSolution(Node n){
+	solution = new int [n.getSize()*2];
+	int counter = solution.length -1;
+	while(n != null){
+	    solution[counter]=n.getCoord()[1];
+	    counter--;
+	    solution[counter]=n.getCoord()[0];
+	    counter--;
+	    maze[n.getCoord()[0]][n.getCoord()[1]]='@';
+	    n = n.getLast();
 	}
     }
      
@@ -119,6 +163,7 @@ public class BetterMaze{
 
     public BetterMaze(String filename){
 	animate = false;
+	solved = false;
 	int maxc = 0;
 	int maxr = 0;
 	startRow = -1;
