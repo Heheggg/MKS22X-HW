@@ -109,6 +109,7 @@ public class BetterMaze{
 	if(maze[row][col-1]== ' ' || maze[row][col-1]== 'E'){
 	    Node newN = new Node(row,col-1,C,C.getSize()+1);	    
 	}
+	
     }
      
     /**mutator for the animate variable  **/
