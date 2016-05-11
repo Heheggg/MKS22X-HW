@@ -22,15 +22,19 @@ public class RunningMedian{
     }
 
     public void add(double x){
-	if(x > getMedian()){
+	if(smaller.getSize() == 0 && bigger.getSize() == 0){
 	    bigger.add(x);
-	    if(bigger.getSize()-smaller.getSize() > 1){
-		smaller.add(bigger.delete());
-	    }
 	}else{
-	    smaller.add(x);
-	    if(smaller.getSize()-smaller.getSize() > 1){
-		bigger.add(smaller.delete());
+	    if(x > getMedian()){
+		bigger.add(x);
+		if(bigger.getSize()-smaller.getSize() > 1){
+		    smaller.add(bigger.delete());
+		}
+	    }else{
+		smaller.add(x);
+		if(smaller.getSize()-bigger.getSize() > 1){
+		    bigger.add(smaller.delete());
+		}
 	    }
 	}
     }
